@@ -27,25 +27,26 @@
     
 - name: "fetch SonarQube binaries"
   fetch:
-      source: "{{ sonar_downloaded_path }}"
-      dest: "/tmp/{{ __sonar_archive }}"
+      source: "{{ __sonar_archive }}"
+      dest: "{{ sonar_install_directory }}"
   retries: 5
   delay: 10
 
 - name: "Expand SonarQube binaries"
   unarchive:
-      src: "/tmp/{{ __sonar_archive }}"
-      dest: "{{ sonar_install_directory }}"
+      src: "{{ sonar_install_directory }}"
+      dest: "{{ sonar_base_dir }}"
       owner: "{{ sonar_user }}"
       group: "{{ sonar_group }}"
       copy: no
+      
 - name: "Copy SonarQube systemd unit file into place "
   template:
     src: sonar.service.j2
     dest: /etc/systemd/system/sonar.service
     owner: root
     group: root
-    mode: 0755
+    mode: 0777
   register: systemd_service
   when: "ansible_service_mgr == 'systemd'"
 
