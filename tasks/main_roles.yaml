@@ -65,5 +65,5 @@
   become_user: "{{ sonar_user }}"
   service:
     name: sonar
-    state: restart
+    state: started
     enabled: yes
