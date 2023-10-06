@@ -1,0 +1,5 @@
+- name: Include OS specific variables.
+  include_vars: "{{ ansible_system }}.yml"
+
+- name: Install sonar-scanner
+  include_tasks: "main.yml"
