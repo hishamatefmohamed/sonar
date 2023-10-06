@@ -1,5 +1,0 @@
-- name: Include OS specific variables.
-  include_vars: "main_var.yml"
-
-- name: Install sonar-scanner
-  include_tasks: "main.yml"
