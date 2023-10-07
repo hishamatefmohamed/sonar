@@ -60,10 +60,22 @@
   register: systemd_service
   when: "ansible_service_mgr == 'systemd'"
 
+- name: "Copy SonarQube.prob"
+  template:
+    src: sonar.properties.j2
+    dest: "{{ sonar_base_dir }}/conf/"
+    owner: root
+    group: root
+    mode: 0777
+  register: systemd_service
+  when: "ansible_service_mgr == 'systemd'"
+
+
+
 - name: "Ensure SonarQube is running and set to start on boot."
   become: yes 
   become_user: "{{ sonar_user }}"
   service:
     name: sonar
-    state: restart
+    state: started
     enabled: yes
